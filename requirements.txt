@@ -1,0 +1,12 @@
+fastapi~=0.110.2
+pydantic~=2.7.1
+pytest~=8.2.2
+sqlalchemy~=2.0.30
+psycopg2
+isort~=5.13.2
+pyright
+ruff
+httpx
+python-dotenv
+black
+
