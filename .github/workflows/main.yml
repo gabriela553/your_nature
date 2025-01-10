@@ -39,11 +39,17 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y docker.io docker-compose-plugin
-
+    - name: Set up environment variables
+      run: |
+        echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> $GITHUB_ENV
+        echo "CONNECTION_STRING=${{ secrets.CONNECTION_STRING }}" >> $GITHUB_ENV
+        
     - name: Run Docker Compose
       run: docker compose up --build --exit-code-from app
       env:
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        POSTGRES_DB: your_nature
+        POSTGRES_USER: postgres
         CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
 
     - name: Get logs if failed
