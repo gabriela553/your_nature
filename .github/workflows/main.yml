@@ -35,23 +35,20 @@ jobs:
     - name: Run Black linter
       run: black . --check
 
-    - name: Install Docker
+    - name: Install Docker Compose
       run: |
-        sudo apt-get update
-        sudo apt-get install -y docker.io docker-compose-plugin
-    - name: Set up environment variables
-      run: |
-        echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> $GITHUB_ENV
-        echo "CONNECTION_STRING=${{ secrets.CONNECTION_STRING }}" >> $GITHUB_ENV
+        sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
         
-    - name: Run Docker Compose
-      run: docker compose up --build --exit-code-from app
+    - name: Run docker-compose
+      uses: hoverkraft-tech/compose-action@v2.0.1
+      with:
+        compose-file: "./docker-compose.yml"
       env:
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         POSTGRES_DB: your_nature
         POSTGRES_USER: postgres
-        CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
-
+    
     - name: Get logs if failed
       if: failure()
       run: docker compose logs
