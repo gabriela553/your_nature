@@ -33,7 +33,7 @@ def _override_get_db(test_db) -> None:
 
 
 def test_add_molecule(_override_get_db):
-    product_data = {"name": "Face cream", "price": "20.99", "stock": 46}
+    product_data = {"name": "Face cream", "price": "21.99", "stock": 46}
 
     response = client.post("/store", json=product_data)
 
