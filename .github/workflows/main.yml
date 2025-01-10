@@ -41,6 +41,7 @@ jobs:
         compose-file: "./docker-compose.yml"
       env:
         POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        CONNECTION_STRING: ${{ secrets.CONNECTION_STRING }}
 
     - name: Execute tests in the running services
       run: docker compose -f docker-compose.yml run app pytest -s -vv
