@@ -1,2 +1,5 @@
 .idea
 .env
+.pytest_cache
+your_nature_app/__pycache__
+your_nature_app/.ruff_cache
